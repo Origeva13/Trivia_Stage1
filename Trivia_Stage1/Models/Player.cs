@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Trivia_Stage1.Models;
 
 [Table("Player")]
-[Index("Email", Name = "UQ__Player__A9D105341363C0ED", IsUnique = true)]
+[Index("Email", Name = "UQ__Player__A9D10534871EDB3E", IsUnique = true)]
 public partial class Player
 {
     [Key]
@@ -22,6 +22,10 @@ public partial class Player
     public int NumOfPoints { get; set; }
 
     public int NumPlayerType { get; set; }
+
+    [Column("pass")]
+    [StringLength(100)]
+    public string? Pass { get; set; }
 
     [ForeignKey("NumPlayerType")]
     [InverseProperty("Players")]

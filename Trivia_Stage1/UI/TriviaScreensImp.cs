@@ -5,6 +5,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Trivia_Stage1.Models;
 
 namespace Trivia_Stage1.UI
 {
@@ -13,12 +14,17 @@ namespace Trivia_Stage1.UI
 
         //Place here any state you would like to keep during the app life time
         //For example, player login details...
-
+        private Player currentPlayer;
 
         //Implememnt interface here
         public bool ShowLogin()
         {
-            Console.WriteLine("Not implemented yet! Press any key to continue...");
+            Console.WriteLine("Please enter your name");
+            string name=Console.ReadLine();
+            Console.WriteLine("Please enter your email");
+            string email = Console.ReadLine();
+            Console.WriteLine("Please enter your password");
+            string password= Console.ReadLine();
             Console.ReadKey(true);
             return true;
         }
@@ -27,12 +33,12 @@ namespace Trivia_Stage1.UI
             //Logout user if anyone is logged in!
             //A reference to the logged in user should be stored as a member variable
             //in this class! Example:
-            //this.currentyPLayer == null
+            this.currentPlayer = null;
 
             //Loop through inputs until a user/player is created or 
             //user choose to go back to menu
             char c = ' ';
-            while (c != 'B' && c != 'b' /*&& this.currentyPLayer == null*/)
+            while (c != 'B' && c != 'b' && this.currentPlayer == null)
             {
                 //Clear screen
                 CleareAndTtile("Signup");
@@ -63,19 +69,19 @@ namespace Trivia_Stage1.UI
 
 
                 Console.WriteLine("Connecting to Server...");
-                /* Create instance of Business Logic and call the signup method
-                 * For example:
+                //Create instance of Business Logic and call the signup method
+                // *For example:
                 try
                 {
-                    TriviaDBContext db = new TriviaDBContext();
-                    this.currentyPLayer = db.Signup(email, password, name);
+                    TriviaDbContext db = new TriviaDbContext();
+                    this.currentPlayer = db.SignUp(name,  email, password);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Failed to signup! Email may already exist in DB!");
                 }
-                
-                */
+
+
 
                 //Provide a proper message for example:
                 Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
