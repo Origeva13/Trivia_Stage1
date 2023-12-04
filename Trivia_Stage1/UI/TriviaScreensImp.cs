@@ -19,14 +19,41 @@ namespace Trivia_Stage1.UI
         //Implememnt interface here
         public bool ShowLogin()
         {
-            Console.WriteLine("Please enter your name");
-            string name=Console.ReadLine();
-            Console.WriteLine("Please enter your email");
-            string email = Console.ReadLine();
-            Console.WriteLine("Please enter your password");
-            string password= Console.ReadLine();
-            Console.ReadKey(true);
-            return true;
+            //Console.WriteLine("Please enter your name");
+            //string name=Console.ReadLine();
+            char c = ' ';
+            while (c != 'B' && c != 'b' && this.currentPlayer == null)
+            {
+                //Clear screen
+                CleareAndTtile("Login");
+                Console.WriteLine("Please enter your email");
+                string email = Console.ReadLine();
+                Console.WriteLine("Please enter your password");
+                string password = Console.ReadLine();
+
+
+                Console.WriteLine("Connecting to Server...");
+                //Create instance of Business Logic and call the signup method
+                // *For example:
+                try
+                {
+                    TriviaDbContext db = new TriviaDbContext();
+                    this.currentPlayer = db.Login(email, password);
+                    Console.WriteLine("YOU SUCCESSFULLY LOGGED IN");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Failed to login!");
+                }
+                //Provide a proper message for example:
+                Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
+                //Get another input from user
+                c = Console.ReadKey(true).KeyChar;
+                return true;
+            }
+
+        
+            return (false);
         }
         public bool ShowSignup()
         {
@@ -75,6 +102,7 @@ namespace Trivia_Stage1.UI
                 {
                     TriviaDbContext db = new TriviaDbContext();
                     this.currentPlayer = db.SignUp(name,  email, password);
+                    Console.WriteLine("YOU SUCCESSFULLY SIGNED UP");
                 }
                 catch (Exception ex)
                 {
@@ -110,8 +138,16 @@ namespace Trivia_Stage1.UI
         }
         public void ShowProfile()
         {
-            Console.WriteLine("Not implemented yet! Press any key to continue...");
-            Console.ReadKey(true);
+            CleareAndTtile("Profile");
+            char c = ' ';
+            while (c != 'B' && c != 'b' && this.currentPlayer == null)
+            {
+                //TriviaDbContext db = new TriviaDbContext();
+                //this.currentPlayer = db.Profile(currentPlayer.Email);
+                Console.WriteLine("Email: " + currentPlayer.Email + '\n' + "Name: " + currentPlayer.PlayerName + '\n' + "Passowrd: " + currentPlayer.Pass + '\n' + "Player Type:" + currentPlayer.NumPlayerTypeNavigation.PlayerType + '\n' + "Points: " + currentPlayer.NumOfPoints);
+                c = Console.ReadKey(true).KeyChar;
+            }
+
         }
 
         //Private helper methodfs down here...
