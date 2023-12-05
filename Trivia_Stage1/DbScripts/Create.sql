@@ -113,7 +113,7 @@ VALUES ('Trainee');
 
 DELETE FROM TypeOfPlayer WHERE [NumPlayerType]=5;
 
-SELECT * FROM TypeOfPlayer
+SELECT * FROM Player
 
 INSERT INTO QuestionStatus ([StatusOfQuestion]) Values ('pending')
 
@@ -132,10 +132,10 @@ SELECT * FRom Player
  INSERT INTO SubQuestion ([SubOfQuestion]) VALUES ('Science');
  INSERT INTO SubQuestion ([SubOfQuestion]) VALUES ('Ramon High School');
 
-INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (3,2, 1, 'When was the first Olympics Games?', '1896', '1987', '1876', '1800')
-INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (3,2, 2, 'Who was the first Prime Minister?', 'David Ben Gurion', 'Golda Meir', 'Ofer Zadikrio', 'Efraim Katzir')
-INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (3,2, 3, 'What year was the Boston Tea Party?', '1773', '1778', '1776', '1873')
-INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (3,2, 4, 'What is the first element in the periodic table of elements?', 'Hydrogen', 'Helium', 'Gold', 'Lithium')
-INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (3,2, 5, 'Who is the current principal of Ramon High School?', 'Hannah Dalmadigo', 'Ofer Zadikrio', 'Smadar Vechter', 'Tal Duzly')
+INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (1,2, 1, 'When was the first Olympics Games?', '1896', '1987', '1876', '1800')
+INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (1,2, 2, 'Who was the first Prime Minister?', 'David Ben Gurion', 'Golda Meir', 'Ofer Zadikrio', 'Efraim Katzir')
+INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (1,2, 3, 'What year was the Boston Tea Party?', '1773', '1778', '1776', '1873')
+INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (1,2, 4, 'What is the first element in the periodic table of elements?', 'Hydrogen', 'Helium', 'Gold', 'Lithium')
+INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (1,2, 5, 'Who is the current principal of Ramon High School?', 'Hannah Dalmadigo', 'Ofer Zadikrio', 'Smadar Vechter', 'Tal Duzly')
 
 Alter Table Player ADD pass nvarchar(100);

@@ -38,32 +38,25 @@ public partial class TriviaDbContext : DbContext
         }
             
     }
-    //public Player Profile(string email)
-    //{
-    //    //Player? p1=this.Players.Where(p=>p.Email == email).FirstOrDefault();
-    //    //if(p1 == null)
-    //    //{
-    //    //    throw new Exception("Plyer does not exist in DB yet!");
-    //    //}
-    //    //else
-    //    //{
-    //    //    return p1;
-    //    //}
-    //    Player? pl = new Player();
-    //    foreach (Player p in this.Players)
-    //    {
-    //        if (p.Email.Equals(email))
-    //        {
-    //            pl = p;
-    //        }
-    //    }
-    //    return pl;
-    //}
-    public void UpdateEmail(Player p,string email)
+    
+    public void UpdatePlayer(Player p)
     {
-        ////this.Players.Set(email);
-        //p.Updateemail; 
-        //SaveChanges();
-        //Player? p = this.Players.Update(email=>)
+        Entry(p).State = EntityState.Modified;
+        SaveChanges();
+    }
+    public void AddQuestion(Question question)
+    {
+        Entry(question).State= EntityState.Added;
+        SaveChanges();
+    }
+    public List<Question> GetPendingQuestions()
+    {
+        List<Question> pending = this.Questions.Where(q=>q.StatusIdquestion==1).ToList();
+        return pending;
+    }
+    public void UpdateStatusQuestion(Question q)
+    {
+        Entry(q).State = EntityState.Modified;
+        SaveChanges();
     }
 }
