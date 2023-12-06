@@ -3,44 +3,7 @@ Go
  Use Trivia
  Go
 
--- create table [TypeOfPlayer](
--- [NumPlayerType] int identity (1,1) not null,
--- [PlayerType] nvarchar not null
--- )
--- GO 
 
--- CREATE TABLE [Player](
--- [PlayerId] int identity (1,1) not null,
--- [PlayerName]  nvarchar not null,
--- [Email] nvarchar unique,
--- [NumOfPoints] int not null,
--- [NumPlayerType] int not null,
--- CONSTRAINT [FK_Player_TypeOfPlayer] FOREIGN KEY (NumPlayerType) REFERENCES [TypeOfPlayer] ([NumPlayerType]),
--- CONSTRAINT [PK_Player] PRIMARY KEY CLUSTERED ([PlayerId] Asc)
--- )
--- GO
-
---DROP TABLE TypeOfPlayer;
---GO
-
-
--- create table [TypeOfPlayer](
--- [NumPlayerType] int identity (1,1) not null,
--- [PlayerType] nvarchar not null,
--- CONSTRAINT [PK_TypeOfPlayer] PRIMARY KEY CLUSTERED ([NumPlayerType] Asc)
--- )
--- GO 
-
---  CREATE TABLE [Player](
--- [PlayerId] int identity (1,1) not null,
--- [PlayerName]  nvarchar not null,
--- [Email] nvarchar unique,
--- [NumOfPoints] int not null,
--- [NumPlayerType] int not null,
--- CONSTRAINT [FK_Player_TypeOfPlayer] FOREIGN KEY (NumPlayerType) REFERENCES [TypeOfPlayer] ([NumPlayerType]),
--- CONSTRAINT [PK_Player] PRIMARY KEY CLUSTERED ([PlayerId] Asc)
--- )
--- GO
 
  CREATE Table SubQuestion(
  [SubID] int identity (1,1) not null,
@@ -48,17 +11,6 @@ Go
  CONSTRAINT [PK_SubQuestion] PRIMARY KEY CLUSTERED ([SubID] Asc)
  )
  GO
-
-
- Drop table [TypeOfPlayer]
- Go
-
-
- Drop table Player
- Go
-
-
-
 
   create table [TypeOfPlayer](
  [NumPlayerType] int identity (1,1) not null,

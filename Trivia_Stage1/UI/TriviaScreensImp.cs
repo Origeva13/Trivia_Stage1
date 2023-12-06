@@ -16,48 +16,44 @@ namespace Trivia_Stage1.UI
 
         //Place here any state you would like to keep during the app life time
         //For example, player login details...
-        private Player currentPlayer;
+        private Player currentPlayer;//יצרנו שחקן חדש
 
         //Implememnt interface here
-        public bool ShowLogin()
+        public bool ShowLogin()//פעולה שמראה את מסך לוג אין
         {
-            bool success = true;
-            //Console.WriteLine("Please enter your name");
-            //string name=Console.ReadLine();
+            bool success = true;//משתנה שכאשר הוא לא שווה לנכון הפעולה נגמרת ועוברת למסך הב נגדיר נכון בשביל שהפעולה תרוץ
             char c = ' ';
-            while (c != 'B' && c != 'b' && this.currentPlayer == null)
+            while (c != 'B' && c != 'b' && this.currentPlayer == null)//לולאה שרצה כל עוד לא הכניסו את האות בי והשחקן הנוכחי שונה מנל
             {
                 //Clear screen
                 CleareAndTtile("Login");
                 Console.WriteLine("Please enter your email");
-                string email = Console.ReadLine();
+                string email = Console.ReadLine();//מקבלים את האימייל שהמשתמש הכניס
                 Console.WriteLine("Please enter your password");
-                string password = Console.ReadLine();
-
-
+                string password = Console.ReadLine();// מקבלים את הסיסמא שהמתשתמש הכניס
                 Console.WriteLine("Connecting to Server...");
                 //Create instance of Business Logic and call the signup method
                 // *For example:
-                try
+                try// בודקים האם המשתמש קיים בבסיס הנתונים
                 {
                     TriviaDbContext db = new TriviaDbContext();
-                    this.currentPlayer = db.Login(email, password);
-                    Console.WriteLine("YOU SUCCESSFULLY LOGGED IN");
-                    success = true;
+                    this.currentPlayer = db.Login(email, password);//מחפשים את השחקן הנוכחי בעזרת פעולת העזר
+                    Console.WriteLine("YOU SUCCESSFULLY LOGGED IN");//הודעה שהמשתמש קיים
+                    success = true;// השחקן קיים מחזירים נכון
                 }
-                catch (Exception ex)
+                catch (Exception ex)//האם השחקן לא קיים 
                 {
                     Console.WriteLine("Failed to login!");
-                    success = false;
+                    success = false;//מחזירים לא נכון
                 }
                 //Provide a proper message for example:
-                if (!success)
+                if (!success)//אם תפסנו לא נכון ניתן למשתמש הזדמנות לחזור חזרה
                     Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
                 else
                     Console.WriteLine("Press any key to continue...");
                 //Get another input from user
                 c = Console.ReadKey(true).KeyChar;
-                return success;
+                return success;//נחזיר את המשתנה ונעבור למסך הבא
             }
 
         
@@ -133,41 +129,41 @@ namespace Trivia_Stage1.UI
             return (success);
         }
 
-        public void ShowAddQuestion()
+        public void ShowAddQuestion()//מסך שאפשר להוסיף שאלה
         {
             CleareAndTtile("Add Questions");
             
-                if (this.currentPlayer.NumOfPoints >= 100 || this.currentPlayer.NumPlayerType == 1)
+                if (this.currentPlayer.NumOfPoints >= 100 || this.currentPlayer.NumPlayerType == 1)//האם המשתמש הוא מנהל או יש לו 100 נקודות
                 {
                     Console.WriteLine("Enter x if the subject of your question is: " + '\n' + "1- sports" + '\n' + "2- politics" + '\n' + "3- history" + '\n' + "4- science" + '\n' + "5- ramon high school");
-                    int subject = int.Parse(Console.ReadLine());
+                    int subject = int.Parse(Console.ReadLine());//מקבל אינדקס של נושא השאלה
 
                     Console.WriteLine("Please enter your question");
-                    string ques = Console.ReadLine();
+                    string ques = Console.ReadLine();//מקבל את תוכן השאלה
 
                     Console.WriteLine("Please enter the answer to your question");
-                    string ans = Console.ReadLine();
+                    string ans = Console.ReadLine();//מקבל את התשובה הנכונה לשאלה
 
                     Console.WriteLine("Please enter 3 wrong answers");
-                    string wrong1 = Console.ReadLine();
-                    string wrong2 = Console.ReadLine();
-                    string wrong3 = Console.ReadLine();
+                    string wrong1 = Console.ReadLine();//מקבל את התשובה השגויה הראשונה
+                    string wrong2 = Console.ReadLine();//מקבל את התשובה השגויה השנייה
+                    string wrong3 = Console.ReadLine();//מקבל את התשובה השגויה השלישית
 
-                    Question q = new Question()
+                    Question q = new Question()//יוצרת שאלה חדשה
                     {
-                        PlayerId = this.currentPlayer.PlayerId,
-                        SubId = subject,
-                        QuestionContent = ques,
-                        CorrectAnswer = ans,
-                        WrongAnswer1 = wrong1,
-                        WrongAnswer2 = wrong2,
-                        WrongAnswer3 = wrong3,
-                        StatusIdquestion = 1
+                        PlayerId = this.currentPlayer.PlayerId,//האינדקס של השחקן זהה
+                        SubId = subject,//הנושא של השאלה הוא האינדקס שקיבלנו
+                        QuestionContent = ques, //התוכן ש השאלה הוא תוכן השאלה שקיבלנו
+                        CorrectAnswer = ans,// התשובה הנכונה היא התשובה הנכונה שקיבלנו
+                        WrongAnswer1 = wrong1,//התשובה השגויה היא התשובה השגויה שקיבלנו
+                        WrongAnswer2 = wrong2,//התשובה השגויה היא התשובה השגויה שקיבלנו
+                        WrongAnswer3 = wrong3,//התשובה השגויה היא התשובה השגויה שקיבלנו
+                        StatusIdquestion = 1//השאלה מחכה לאישור
                     };
                     try
                     {
                         TriviaDbContext db = new TriviaDbContext();
-                        db.AddQuestion(q);
+                        db.AddQuestion(q);//נשתמש בפעולת העזר ונוסיף את השאלה לבסיס הנתונים
                     }
                     catch(Exception ex)
                     {
@@ -177,19 +173,19 @@ namespace Trivia_Stage1.UI
                 }
                 else
                 {
-                    Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
+                    Console.WriteLine("You dont have the position to add Press (B)ack to go back or any other key to signup again...");
                 }
                 Console.ReadKey(true);
          
         }
 
-        public void ShowPendingQuestions()
+        public void ShowPendingQuestions()//פעולה שמראה את השאלות שמחכות לאישור ונותנת לאשר או לפסול את השאלות
         {
             CleareAndTtile("Pending Questions");
-            if (currentPlayer.NumPlayerType==2 || currentPlayer.NumPlayerType == 1)
+            if (currentPlayer.NumPlayerType==2 || currentPlayer.NumPlayerType == 1)//האם המשתמש יכול לפסול או לאשר שאלות
             {
                 TriviaDbContext db = new TriviaDbContext();
-                List<Question> q = db.GetPendingQuestions();
+                List<Question> q = db.GetPendingQuestions();//מקבל רשימה של כל השאלות שמחכות לאישור 
                 foreach (Question ques in q)
                 {
                     CleareAndTtile("Question #"+ques.QuestionNum);
