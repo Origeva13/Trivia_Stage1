@@ -59,4 +59,17 @@ public partial class TriviaDbContext : DbContext
         Entry(q).State = EntityState.Modified;
         SaveChanges();
     }
+    public List<Question> GetApprovedQuestions()
+    {
+        List<Question> approved = this.Questions.Where(q => q.StatusIdquestion == 2).ToList();
+        return approved;
+    }
+   
+    public int ShuffleQuestions(Question q)
+    {
+        
+        Random random = new Random();
+       int ans=random.Next(1,5);
+        return ans;
+    }
 }

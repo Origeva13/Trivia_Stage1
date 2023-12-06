@@ -120,9 +120,9 @@ INSERT INTO QuestionStatus ([StatusOfQuestion]) Values ('pending')
 INSERT INTO QuestionStatus ([StatusOfQuestion]) Values ('approved')
 INSERT INTO QuestionStatus ([StatusOfQuestion]) Values ('denied')
 
-SELECT * FROM Questions
+SELECT * FROM SubQuestions
 
-SELECT * FROM SubQuestion
+SELECT * FROM Questions
 INSERT INTO Player ([PlayerName], [Email], [NumOfPoints],  [NumPlayerType],pass) VALUES ('Bob', 'bob123@gmail.com', 0, 1,'123456789');
 
 SELECT * FRom Player
