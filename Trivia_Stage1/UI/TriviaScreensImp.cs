@@ -185,21 +185,21 @@ namespace Trivia_Stage1.UI
             if (currentPlayer.NumPlayerType==2 || currentPlayer.NumPlayerType == 1)//האם המשתמש יכול לפסול או לאשר שאלות
             {
                 TriviaDbContext db = new TriviaDbContext();
-                List<Question> q = db.GetPendingQuestions();//מקבל רשימה של כל השאלות שמחכות לאישור 
-                foreach (Question ques in q)
+                List<Question> q = db.GetPendingQuestions();// מקבל רשימה של כל השאלות שמחכות לאישור בעזרת פעולת עזר 
+                foreach (Question ques in q)//עובר על כל השאלות שעוד לא אושרו
                 {
                     CleareAndTtile("Question #"+ques.QuestionNum);
-                    Console.WriteLine(ques.QuestionContent);
-                    Console.WriteLine("Correct answers: " + ques.CorrectAnswer + '\n' + '\n' + "Wrong answers: " + '\n' + ques.WrongAnswer1 + '\n' + ques.WrongAnswer2 + '\n' + ques.WrongAnswer3);
+                    Console.WriteLine(ques.QuestionContent);//מציג את השאלה
+                    Console.WriteLine("Correct answers: " + ques.CorrectAnswer + '\n' + '\n' + "Wrong answers: " + '\n' + ques.WrongAnswer1 + '\n' + ques.WrongAnswer2 + '\n' + ques.WrongAnswer3);// מציג את התשובה הנכונה ואת שלושת התשובות הלא נכונות
 
-                    Console.WriteLine("If you want to:" + '\n' + " approve this question click a, " + '\n' + "disapprove this question click d" + '\n' + "skip click s");
+                    Console.WriteLine("If you want to:" + '\n' + " approve this question click a, " + '\n' + "disapprove this question click d" + '\n' + "skip click s");//שואל את המשתמש אם הוא רוצה לאשר את השאלה, לא לאשר אותה או לעבור לשאלה אחרת
                     char ch = char.Parse(Console.ReadLine());
-                    if (ch == 'a')
+                    if (ch == 'a')//בודק אם המשתמש בחר לאשר את השאלה
                     {
                         try
                         {
-                            ques.StatusIdquestion = 2;
-                            db.UpdateStatusQuestion(ques);
+                            ques.StatusIdquestion = 2;//מנסה לשנות את הסטטוס של השאלה למאושר
+                            db.UpdateStatusQuestion(ques);//משנה בבסיס הנתונים את סטטוס השאלה בעזרת פעולת עזר
                         }
                         catch (Exception ex)
                         {
@@ -207,19 +207,19 @@ namespace Trivia_Stage1.UI
                         }
 
                     }
-                    else if (ch == 'd')
+                    else if (ch == 'd')//בודק אם המשתמש בחר לא לאשר את השאלה
                     {
                         try
                         {
-                            ques.StatusIdquestion = 3;
-                            db.UpdateStatusQuestion(ques);
+                            ques.StatusIdquestion = 3;//מנסה לשנות את הסטטוס של השאלה ללא מאושר
+                            db.UpdateStatusQuestion(ques);// משנה בבסיס נתונים את סטטוס השאלה בעזרת פעולה עזר
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine("Couldn't add question!");
                         }
                     }
-                    else if (ch == 's')
+                    else if (ch == 's')//בודק אם המשתמש בחר לעבור הלאה לשאלה הבאה
                     {
                         Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
                     }
@@ -235,59 +235,59 @@ namespace Trivia_Stage1.UI
             char c = ' ';
             CleareAndTtile("Game");
             TriviaDbContext db = new TriviaDbContext();
-            List<Question> q = db.GetApprovedQuestions();
-            int cnt = 0;
-              foreach (Question ques in q)
+            List<Question> q = db.GetApprovedQuestions();//מקבל רשימה של השאלות המאושרות בעזרת פעולת עזר 
+          
+              foreach (Question ques in q)//עובר על כל השאלות ברשימה שהתקבלה
                 {
-                    cnt++;
+                    
                     CleareAndTtile("GAME");
-                    Console.WriteLine("Name: " + currentPlayer.PlayerName + '\n' + "Points: " + currentPlayer.NumOfPoints);
-                    Console.WriteLine("Question #" + ques.QuestionNum);
-                    Console.WriteLine(ques.QuestionContent);
-                    int ans=db.ShuffleQuestions(ques);
+                    Console.WriteLine("Name: " + currentPlayer.PlayerName + '\n' + "Points: " + currentPlayer.NumOfPoints);//מציג את שם השחקן ואת מספר הנקודות שיש לו
+                    Console.WriteLine("Question #" + ques.QuestionNum);// מציג את מספר השאלה
+                    Console.WriteLine(ques.QuestionContent);//מציג את תוכן השאלה
+                    int ans=db.ShuffleQuestions(ques);//משתמש בפעולת עזר כדי לשנות את המקום של התשובה הנכונה
    
-                    if (ans == 1)
+                    if (ans == 1)//בודק אם התשובה הנכונה המקום הראשון
                     {
-                        Console.WriteLine("1. " + ques.CorrectAnswer);
-                        Console.WriteLine("2. " + ques.WrongAnswer1);
-                        Console.WriteLine("3. " + ques.WrongAnswer2);
-                        Console.WriteLine("4. " + ques.WrongAnswer3);
+                        Console.WriteLine("1. " + ques.CorrectAnswer);//מציג את התשובה הנכונה
+                        Console.WriteLine("2. " + ques.WrongAnswer1);//מציג את התשובה הלא נכונה הראשונה
+                        Console.WriteLine("3. " + ques.WrongAnswer2);//מציג את התשובה הלא נכונה השנייה
+                        Console.WriteLine("4. " + ques.WrongAnswer3);//מציג את התשובה הלא נכונה השלישית
                        
 
                     }
-                    else if (ans==2)
+                    else if (ans==2)//בודק אם התשובה הנכונה המקום השני
                     {
-                        Console.WriteLine("1. " + ques.WrongAnswer1);
-                        Console.WriteLine("2. " + ques.CorrectAnswer);
-                        Console.WriteLine("3. " + ques.WrongAnswer2);
-                        Console.WriteLine("4. " + ques.WrongAnswer3);
-                        
-                    }
-                    else if (ans == 3)
+                        Console.WriteLine("1. " + ques.WrongAnswer1);//מציג את התשובה הלא נכונה הראשונה
+                        Console.WriteLine("2. " + ques.CorrectAnswer);//מציג את התשובה הנכונה
+                        Console.WriteLine("3. " + ques.WrongAnswer2);//מציג את התשובה הלא נכונה השנייה
+                        Console.WriteLine("4. " + ques.WrongAnswer3);//מציג את התשובה הלא נכונה השלישית
+
+                }
+                    else if (ans == 3)//בודק אם התשובה הנכונה המקום השלישי
                     {
-                        Console.WriteLine("1. " + ques.WrongAnswer1);
-                        Console.WriteLine("2. " + ques.WrongAnswer2);
-                        Console.WriteLine("3. " + ques.CorrectAnswer);
-                        Console.WriteLine("4. " + ques.WrongAnswer3);
+                        Console.WriteLine("1. " + ques.WrongAnswer1);//מציג את התשובה הלא נכונה הראשונה
+                        Console.WriteLine("2. " + ques.WrongAnswer2);//מציג את התשובה הלא נכונה השנייה
+                        Console.WriteLine("3. " + ques.CorrectAnswer);//מציג את התשובה הנכונה
+                        Console.WriteLine("4. " + ques.WrongAnswer3);//מציג את התשובה הלא נכונה השלישית
                        
                     }
-                    else if (ans == 4)
+                    else if (ans == 4)//בודק אם התשובה הנכונה המקום הרביעי
                     {
-                        Console.WriteLine("1. " + ques.WrongAnswer1);
-                        Console.WriteLine("2. " + ques.WrongAnswer2);
-                        Console.WriteLine("3. " + ques.WrongAnswer3);
-                        Console.WriteLine("4. " + ques.CorrectAnswer);
+                        Console.WriteLine("1. " + ques.WrongAnswer1);//מציג את התשובה הלא נכונה הראשונה
+                        Console.WriteLine("2. " + ques.WrongAnswer2);//מציג את התשובה הלא נכונה השנייה
+                        Console.WriteLine("3. " + ques.WrongAnswer3);//מציג את התשובה הלא נכונה השלישית
+                        Console.WriteLine("4. " + ques.CorrectAnswer);//מציג את התשובה הנכונה
                         
                     }
                     
-                    Console.WriteLine("Press the number of the answer you think is correct or press 5 to skip question or press 0 to exit the game");
+                    Console.WriteLine("Press the number of the answer you think is correct or press 5 to skip question or press 0 to exit the game");//שואל את השחקן איזה תשובה הוא בוחר או אם רוצה לצאת מהמשחק או לדלג על השאלה
                     int ch = int.Parse(Console.ReadLine());
-                    if (ch == ans)
+                    if (ch == ans)//בודק אם השחקן בחר בתשובה הנכונה
                     {
                         try
                         {
-                            currentPlayer.NumOfPoints += 10;
-                            db.UpdatePlayer(currentPlayer);
+                            currentPlayer.NumOfPoints += 10;//מנסה להוסיף לשחקן עוד עשר נקודות
+                            db.UpdatePlayer(currentPlayer);//משנה את מספר הנקודות של המשתמש בבסיס הנתונים בעזרת פעולת עזר
                            Console.WriteLine("GOOD JOB!! YOU CHOSE THE RIGHT ANSWER!");
                     }
                     catch (Exception ex)
@@ -296,24 +296,24 @@ namespace Trivia_Stage1.UI
                         }
                     }
 
-                    else if (ch == 0)
+                    else if (ch == 0)//בודק אם המשתמש רוצה לצאת מהמשחק
                     {
                         
-                        break;
+                        break;//עוצר את המשחק
 
                     }
-                    else if (ch == 5)
+                    else if (ch == 5)//בודק אם השחקן רוצה לדלג על השאלה
                     {
                        Console.WriteLine("Press any other key to continue...");
                       
                     }
-                    else
+                    else//בודק אם המשתמש לא בחר בתשובה הנכונה ולא רצה לצאת מהמשחק או לדלג על השאלה
                     {
                        try
                        {
                             Console.WriteLine("WRONG ANSWER!!");
-                            currentPlayer.NumOfPoints -= 5;
-                            db.UpdatePlayer(currentPlayer);
+                            currentPlayer.NumOfPoints -= 5;//מוריד חמש נקודות לשחקן
+                            db.UpdatePlayer(currentPlayer);//מעדכן בבסיס הנתונים את מספר הנקודות שיש לשחקן בעזרת פעולה עזר
                              Console.WriteLine("Press any key to continue...");
                        }
                        catch (Exception ex)
@@ -328,58 +328,58 @@ namespace Trivia_Stage1.UI
         {
             CleareAndTtile("Profile");
            
-                Console.WriteLine("Email: " + currentPlayer.Email + '\n' + "Name: " + currentPlayer.PlayerName + '\n' + "Passowrd: " + currentPlayer.Pass + '\n' + "Player Type:" + currentPlayer.NumPlayerTypeNavigation.PlayerType + '\n' + "Points: " + currentPlayer.NumOfPoints);
-                Console.WriteLine("Press y if you want to update your email, password or name or any other key if you don't want to update");
+                Console.WriteLine("Email: " + currentPlayer.Email + '\n' + "Name: " + currentPlayer.PlayerName + '\n' + "Passowrd: " + currentPlayer.Pass + '\n' + "Player Type:" + currentPlayer.NumPlayerTypeNavigation.PlayerType + '\n' + "Points: " + currentPlayer.NumOfPoints);//מציג את השחקן
+                Console.WriteLine("Press y if you want to update your email, password or name or any other key if you don't want to update");//שואל את המשתמש אם הוא רוצה לשנות את השם, אימייל או סיסמא שלו
                 char ch = char.Parse(Console.ReadLine());
-                if (ch == 'y')
+                if (ch == 'y')//בודק אם המשתמש רוצה לשנות את השם, אימייל או סיסמא שלו
                 {
-                    Console.WriteLine("Press e if you want to update your email or any other key if you don't want to update");
+                    Console.WriteLine("Press e if you want to update your email or any other key if you don't want to update");//שואל את השחקן אם הוא רוצה לשנות את האימייל שלו
                     char update=char.Parse(Console.ReadLine());
-                    if (update == 'e')
+                    if (update == 'e')//בודק אם המשתמש בחר לשנות את האימייל שלו
                     {
                         Console.WriteLine("Please enter your new email");
-                        string email=Console.ReadLine();
-                        while (!IsEmailValid(email))
+                        string email=Console.ReadLine();//נותן למשתמש להכניס את האימייל המעודכן שלו
+                    while (!IsEmailValid(email))// בודק אם האימייל שהשמשתמש הכניס לא תקינה
                         {
                             Console.Write("Bad email format! Please try again:");
                             email = Console.ReadLine();
                         }
-                        currentPlayer.Email = email;
+                        currentPlayer.Email = email;//מעדכן את האימייל של המשתמש
             
 
                     }
 
-                    Console.WriteLine("Press p if you want to update your password or any other key if you don't want to update");
+                    Console.WriteLine("Press p if you want to update your password or any other key if you don't want to update");//שואל את המשתמש אם הוא רוצה לשנות את הסיסמא שלו
                      update = char.Parse(Console.ReadLine());
-                    if (update == 'p')
+                    if (update == 'p')//בודק אם השחקן בחר לשנות את הסיסמא שלו
                     {
                         Console.WriteLine("Please enter your new password");
-                        string pass = Console.ReadLine();
-                        while (!IsPasswordValid(pass))
+                        string pass = Console.ReadLine();//נותן למשתמש להכניס סיסמא חדשה
+                        while (!IsPasswordValid(pass))//בודק אם הסיסמא שהכניס השחקן לא תקינה
                         {
                             Console.Write("Bad password format! Please try again:");
                             pass = Console.ReadLine();
                         }
-                        currentPlayer.Pass= pass;
+                        currentPlayer.Pass= pass;//מעדכן את הסיסמא של המשתמש
                     }
 
-                    Console.WriteLine("Press n if you want to update your name or any other key if you don't want to update");
+                    Console.WriteLine("Press n if you want to update your name or any other key if you don't want to update");//שואל את המשתמש אם הוא רוצה לשנות את השם שלו
                      update = char.Parse(Console.ReadLine());
-                    if (update == 'n')
+                    if (update == 'n')//בודק אם המשתמש בחר לשנות את השם שלו
                     {
                         Console.WriteLine("Please enter your new name");
-                        string name = Console.ReadLine();
-                        while (!IsNameValid(name))
+                        string name = Console.ReadLine();//נותן לשחקן להכניס את השם מעודכן שלו
+                        while (!IsNameValid(name))//בודק אם השם שהשחקן הכניס לא תקינה
                         {
                             Console.Write("Bad name format! Please try again:");
                             name = Console.ReadLine();
                         }
-                        currentPlayer.PlayerName = name;
+                        currentPlayer.PlayerName = name;//משנה את השם של השחקן
                     }
                     try
                     {
                         TriviaDbContext db = new TriviaDbContext();
-                        db.UpdatePlayer(currentPlayer);
+                        db.UpdatePlayer(currentPlayer);//מעדכן את פרטי השחקן בבסיס הנתונים בעזרת פעולת עזר
                     }
                     catch(Exception e)
                     {
@@ -387,7 +387,7 @@ namespace Trivia_Stage1.UI
                     }
                    
                 }
-                else
+                else//אם המשתמש לא רוצה לעדכן את הפרטים שלו
                 {
                     Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
 
@@ -397,7 +397,7 @@ namespace Trivia_Stage1.UI
             Console.ReadKey(true);
         }
 
-        //Private helper methodfs down here...
+        //Private helper methods down here...
         private void CleareAndTtile(string title)
         {
             Console.Clear();
