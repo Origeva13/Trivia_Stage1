@@ -65,34 +65,34 @@ namespace Trivia_Stage1.UI
             //A reference to the logged in user should be stored as a member variable
             //in this class! Example:
             this.currentPlayer = null;
-            bool success = true;
+            bool success = true;//משתנה המוגדר כאמת ואם ההרשמה מצליחה אז המשתנה נשאר אמת ואם ההרשמה לא מצליחה אז המתשנה נהיה שקר 
             //Loop through inputs until a user/player is created or 
             //user choose to go back to menu
             char c = ' ';
-            while (c != 'B' && c != 'b' && this.currentPlayer == null)
+            while (c != 'B' && c != 'b' && this.currentPlayer == null)//לולאה הרצה כל עוד המשתמש לא הכניס את האות בי וכל עוד המשתנה שונה מנל
             {
                 //Clear screen
                 CleareAndTtile("Signup");
 
                 Console.Write("Please Type your email: ");
-                string email = Console.ReadLine();
-                while (!IsEmailValid(email))
+                string email = Console.ReadLine();//נותן למשתמש להכניס אימייל
+                while (!IsEmailValid(email))//לולאה הרצה כל עוד האימייל שהמשתמש הכניס לא תקין
                 {
                     Console.Write("Bad Email Format! Please try again:");
                     email = Console.ReadLine();
                 }
 
-                Console.Write("Please Type your password: ");
+                Console.Write("Please Type your password: ");//נותן למשתמש להכניס סיסמא
                 string password = Console.ReadLine();
-                while (!IsPasswordValid(password))
+                while (!IsPasswordValid(password))//לולאה הרצה כל עוד הסיסמא שהמשתמש הכניס לא תקינה
                 {
                     Console.Write("password must be at least 4 characters! Please try again: ");
                     password = Console.ReadLine();
                 }
 
-                Console.Write("Please Type your Name: ");
+                Console.Write("Please Type your Name: ");//נותן למשתמש להכניס שם
                 string name = Console.ReadLine();
-                while (!IsNameValid(name))
+                while (!IsNameValid(name))//לולאה הרצה כל עוד השם שהמשתמש הכניס לא תקין
                 {
                     Console.Write("name must be at least 3 characters! Please try again: ");
                     name = Console.ReadLine();
@@ -105,14 +105,14 @@ namespace Trivia_Stage1.UI
                 try
                 {
                     TriviaDbContext db = new TriviaDbContext();
-                    this.currentPlayer = db.SignUp(name,  email, password);
-                    Console.WriteLine("YOU SUCCESSFULLY SIGNED UP");
-                    success = true;
+                    this.currentPlayer = db.SignUp(name,  email, password);//מנסה להוסיף את המשתמש לבסיס נתונים בעזרת פעולת עזר
+                    Console.WriteLine("YOU SUCCESSFULLY SIGNED UP");//נותן הודעה מתאימה אם ההרשמה הצליחה
+                    success = true;//משתנה את המשתנה לאמת
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Failed to signup! Email may already exist in DB!");
-                    success = false;
+                    Console.WriteLine("Failed to signup! Email may already exist in DB!");//נותן הודעה מתאימה אם ההרשמה לא הצליחה
+                    success = false;//משתנה את המשתנה לשקר
                 }
 
 
@@ -126,7 +126,7 @@ namespace Trivia_Stage1.UI
                 c = Console.ReadKey(true).KeyChar;
             }
             //return true if signup suceeded!
-            return (success);
+            return (success);//מחזיר את המשתמש לעמוד הבא
         }
 
         public void ShowAddQuestion()//מסך שאפשר להוסיף שאלה

@@ -63,7 +63,7 @@ VALUES ('Master');
 INSERT INTO TypeOfPlayer ([PlayerType])
 VALUES ('Trainee');
 
-DELETE FROM TypeOfPlayer WHERE [NumPlayerType]=5;
+
 
 SELECT * FROM Player
 
