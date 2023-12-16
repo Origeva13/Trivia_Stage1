@@ -72,7 +72,7 @@ INSERT INTO QuestionStatus ([StatusOfQuestion]) Values ('pending')
 INSERT INTO QuestionStatus ([StatusOfQuestion]) Values ('approved')
 INSERT INTO QuestionStatus ([StatusOfQuestion]) Values ('denied')
 
-SELECT * FROM SubQuestions
+SELECT * FROM SubQuestion
 
 SELECT * FROM Questions
 INSERT INTO Player ([PlayerName], [Email], [NumOfPoints],  [NumPlayerType],pass) VALUES ('Bob', 'bob123@gmail.com', 0, 1,'123456789');
@@ -91,3 +91,4 @@ INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent
 INSERT INTO Questions ([PlayerId], [StatusIDQuestion], [SubID], [QuestionContent], [CorrectAnswer], [WrongAnswer1], [WrongAnswer2], [WrongAnswer3]) values (1,2, 5, 'Who is the current principal of Ramon High School?', 'Hannah Dalmadigo', 'Ofer Zadikrio', 'Smadar Vechter', 'Tal Duzly')
 
 Alter Table Player ADD pass nvarchar(100);
+DELETE FROM SubQuestion Where SubID>5;

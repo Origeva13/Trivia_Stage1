@@ -288,7 +288,7 @@ namespace Trivia_Stage1.UI
                         {
                             currentPlayer.NumOfPoints += 10;//מנסה להוסיף לשחקן עוד עשר נקודות
                             db.UpdatePlayer(currentPlayer);//משנה את מספר הנקודות של המשתמש בבסיס הנתונים בעזרת פעולת עזר
-                           Console.WriteLine("GOOD JOB!! YOU CHOSE THE RIGHT ANSWER!");
+                           Console.WriteLine("GOOD JOB!! YOU CHOSE THE RIGHT ANSWER!");//אם השחקן צדק בשאלה זה מראה הודעה מתאימה
                     }
                     catch (Exception ex)
                         {
@@ -309,17 +309,25 @@ namespace Trivia_Stage1.UI
                     }
                     else//בודק אם המשתמש לא בחר בתשובה הנכונה ולא רצה לצאת מהמשחק או לדלג על השאלה
                     {
-                       try
-                       {
-                            Console.WriteLine("WRONG ANSWER!!");
-                            currentPlayer.NumOfPoints -= 5;//מוריד חמש נקודות לשחקן
-                            db.UpdatePlayer(currentPlayer);//מעדכן בבסיס הנתונים את מספר הנקודות שיש לשחקן בעזרת פעולה עזר
+                         try
+                         {
+                            Console.WriteLine("WRONG ANSWER!!");//אם השחקן טעה בשאלה זה מראה הודעה מתאימה
+                              if (currentPlayer.NumOfPoints < 5)//בודק אם יש לשחקן פחות מחמש נקודות
+                              {
+                                  currentPlayer.NumOfPoints =0;//אם יש לשחקן פחות מחמש נקודות והוא טעה בשאלה אז על מנת שלא יהיו לו מינוס נקודות נאפס את מספר הנקודות שלו 
+                              }
+                              else
+                              {
+                                  currentPlayer.NumOfPoints -= 5;//מוריד חמש נקודות לשחקן
+                              }
+                           
+                             db.UpdatePlayer(currentPlayer);//מעדכן בבסיס הנתונים את מספר הנקודות שיש לשחקן בעזרת פעולה עזר
                              Console.WriteLine("Press any key to continue...");
-                       }
-                       catch (Exception ex)
-                       {
-                            Console.WriteLine("Couldn't take off points from player!");
-                       }
+                         }
+                         catch (Exception ex)
+                         {
+                             Console.WriteLine("Couldn't take off points from player!");
+                         }
                     }
 
             }
